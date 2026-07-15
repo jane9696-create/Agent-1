@@ -1,0 +1,15 @@
+{
+  "agent": "qsd/manager",
+  "task_id": "2026-07-15_08-37-52-488_qsd-manager",
+  "status": "completed",
+  "started_at": "2026-07-15T08:37:52Z",
+  "ended_at": "2026-07-15T08:38:09Z",
+  "duration_seconds": 17,
+  "model": "sonnet",
+  "dispatched_by": "user",
+  "trace_id": "6ef3f90d-22ba-4bc8-bcda-a5385219e55f",
+  "parent_task_id": null,
+  "input_summary": "系統健康檢查：驗證 /mrs-qsd-standard 入口端到端可用性",
+  "output_summary": "端到端驗證通過：Step0根目錄定位(方式D)、bootstrap(soul/org/tools)、workflow.yaml 讀取、worklog start/end 均正常運作。因缺少實際 checklist/SOP 檔案(位於用戶本機/網路磁碟，非本 repo 內)，於 classify 步驟正確停止並回報缺件，未虛構資料，Document Completeness Gate 生效正常。QSD4603 Lee Road 案 Step3 中斷原因待用戶本機環境確認。",
+  "brief": "系統健康檢查：驗證 /mrs-qsd-standard 入口端到端可用性"
+}
