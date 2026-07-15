@@ -1,0 +1,15 @@
+{
+  "agent": "qsd/form-filler",
+  "task_id": "2026-05-27_07-35-43-101_qsd-form-filler",
+  "status": "completed",
+  "started_at": "2026-05-27T07:35:43Z",
+  "ended_at": "2026-05-27T07:38:52Z",
+  "duration_seconds": 189,
+  "model": "sonnet",
+  "dispatched_by": "manager",
+  "trace_id": "",
+  "parent_task_id": null,
+  "input_summary": "QSD50750 Step 5: fill QSD app form-E-Annex 2 standard mode",
+  "output_summary": "QSD form-E-Annex 2 filled — 43 Pass, 3 Fail, 2 Pending, 5 N/A",
+  "brief": "QSD50750 Step 5: fill QSD app form-E-Annex 2 standard mode"
+}

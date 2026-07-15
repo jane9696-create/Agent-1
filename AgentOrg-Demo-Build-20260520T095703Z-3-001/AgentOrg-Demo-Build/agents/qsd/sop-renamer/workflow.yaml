@@ -1,0 +1,68 @@
+name: sop-renamer-workflow
+version: "1.0"
+error_policy: stop_on_error
+
+steps:
+
+  - id: log_start
+    description: "worklog 打卡開工"
+    action: bash_worklog_start
+    on_error: abort_with_report
+
+  - id: check_memory
+    description: "讀取 memory/MEMORY.md，載入歷史命名模式與已知解析規則"
+    action: read_memory
+    file: memory/MEMORY.md
+    on_error: continue  # 記憶體缺失不阻斷工作
+
+  - id: scan_folder
+    description: "掃描輸入資料夾，列出所有 SOP 檔案（.pdf, .docx, .xlsx, .pptx）"
+    action: glob_files
+    patterns:
+      - "**/*.pdf"
+      - "**/*.docx"
+      - "**/*.xlsx"
+      - "**/*.pptx"
+    on_error: abort_with_report
+
+  - id: parse_names
+    description: "逐一解析每個 SOP 檔案的 number、subject、version（先從檔名，不足則讀封面頁）"
+    action: parse_sop_metadata
+    skill: SOP Filename Parsing
+    unresolved_action: flag_for_review  # 無法解析 → NEEDS_REVIEW，不跳過
+    on_error: abort_with_report
+
+  - id: copy_rename
+    description: "另存新檔（shutil.copy2），新檔名格式：number@subject@version.ext"
+    action: python_script
+    script: .claude/scripts/sop_rename.py
+    rule: "只複製，絕不刪除或移動原始檔案"
+    on_error: report_and_stop  # 任一複製失敗 → 立即停止，不允許靜默跳過
+
+  - id: flag_unresolved
+    description: "彙整所有 NEEDS_REVIEW 項目，準備寫入對照清單"
+    action: collect_flagged_items
+    on_error: continue  # 即使彙整失敗，仍繼續產生部分清單
+
+  - id: generate_manifest
+    description: "產生對照清單 Markdown（每個原始檔案一行：原始檔名 → 新檔名 / NEEDS_REVIEW）"
+    action: write_manifest
+    output_format: markdown_table
+    columns: ["原始檔名", "新檔名", "狀態"]
+    on_error: abort_with_report
+
+  - id: save_output
+    description: "將對照清單寫入輸出資料夾（manifest_YYYYMMDD.md）"
+    action: write_file
+    on_error: abort_with_report
+
+  - id: save_memory
+    description: "將此次任務的新命名模式、解析規則更新至 memory/MEMORY.md"
+    action: update_memory
+    file: memory/MEMORY.md
+    on_error: continue  # 記憶體更新失敗不阻斷回報
+
+  - id: log_end
+    description: "worklog 打卡收工，記錄處理檔案數、成功數、NEEDS_REVIEW 數"
+    action: bash_worklog_end
+    on_error: retry_once_then_report

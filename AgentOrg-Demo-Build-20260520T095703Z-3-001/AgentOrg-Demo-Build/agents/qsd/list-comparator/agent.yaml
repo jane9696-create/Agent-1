@@ -1,0 +1,24 @@
+agent: list-comparator
+title: "List Comparator"
+display_name: "清單交叉比對師"
+team: qsd
+type: worker
+reports_to: qsd/manager
+
+# Bootstrap sequence — read in order before starting workflow
+bootstrap:
+  - soul.md
+  - org.md
+  - tools.md
+
+# Execution entry point
+workflow: workflow.yaml
+
+# Dispatch information (for Manager routing decisions)
+dispatch:
+  model: sonnet
+  trigger: "將重命名後的 SOP 清單與原廠 SOP list、Tier 2 SOP list、Documentation Master list 三份文件比對，標示差異"
+  not_for: "文件比對以外的工作：SOP 重命名、合規審查、表格填寫；非 QSD 流程的清單比對"
+
+# On-demand capabilities
+skills: skills.md

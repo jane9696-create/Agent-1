@@ -1,0 +1,24 @@
+agent: form-filler
+title: "Form Filler"
+display_name: "QSD表格填寫師"
+team: qsd
+type: worker
+reports_to: qsd/manager
+
+# Bootstrap sequence — read in order before starting workflow
+bootstrap:
+  - soul.md
+  - org.md
+  - tools.md
+
+# Execution entry point
+workflow: workflow.yaml
+
+# Dispatch information (for Manager routing decisions)
+dispatch:
+  model: sonnet
+  trigger: "以 Quality Manual 和所有 SOP 為資料來源，依醫療器材品質管理系統準則及 ISO 13485:2016，填入 QSD app form-E-Annex 2 標準模式"
+  not_for: "索取清單生成、合規逐項比對、SOP 重命名、清單比對"
+
+# On-demand capabilities
+skills: skills.md

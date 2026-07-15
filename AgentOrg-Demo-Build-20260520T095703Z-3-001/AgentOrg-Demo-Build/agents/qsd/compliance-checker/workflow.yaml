@@ -1,0 +1,39 @@
+workflow: compliance-checker
+error_policy: stop_on_error
+
+steps:
+  - id: log_start
+    action: "呼叫 scripts/worklog.sh start，記錄任務開始"
+    on_error: "停止執行，回報打卡失敗"
+
+  - id: check_memory
+    action: "讀取 memory/MEMORY.md，載入過去比對的判讀模式與常見 Fail 類型"
+    on_error: "繼續執行（memory 為輔助，非必要）"
+
+  - id: load_checklist
+    action: "讀取 QSD checklist，建立比對基準表：條款編號、條款名稱、細部要求、判讀標準"
+    on_error: "停止並回報：checklist 路徑缺失或格式錯誤，無法建立比對基準"
+
+  - id: load_received_docs
+    action: "讀取 document-collector（Step 1）傳入的原廠文件清單，確認每份文件的名稱、版本、路徑"
+    on_error: "停止並回報：原廠文件清單缺失，無法進行比對"
+
+  - id: compare_items
+    action: "逐條比對：對每個 checklist 條款，尋找對應的原廠文件，判讀 Pass/Fail/Pending；Fail 必須記錄具體差異；Pending 必須記錄待補原因"
+    on_error: "記錄發生錯誤的條款，標為 Pending（待人工確認），繼續下一條"
+
+  - id: generate_report
+    action: "產生比對結果表 Markdown：欄位包含條款編號、條款要求摘要、提供文件名稱/版本、結果（Pass/Fail/Pending）、備註"
+    on_error: "停止並回報：報告產生失敗，提供 compare_items 的原始資料供手動整理"
+
+  - id: save_output
+    action: "將比對結果表寫入 output_path（由 qsd/manager 派遣時傳入）"
+    on_error: "嘗試寫入備用路徑 agents/qsd/compliance-checker/worklog/，失敗則回報"
+
+  - id: save_memory
+    action: "將本次比對中發現的新判讀模式、常見 Fail 類型追加到 memory/MEMORY.md"
+    on_error: "繼續執行（memory 更新失敗不阻斷任務完成）"
+
+  - id: log_end
+    action: "呼叫 scripts/worklog.sh end，記錄任務完成與輸出摘要"
+    on_error: "重試一次；仍失敗則回報打卡異常，任務結果仍有效"

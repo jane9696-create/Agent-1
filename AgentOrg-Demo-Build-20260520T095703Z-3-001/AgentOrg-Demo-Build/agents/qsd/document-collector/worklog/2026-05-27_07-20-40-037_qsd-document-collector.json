@@ -1,0 +1,15 @@
+{
+  "agent": "qsd/document-collector",
+  "task_id": "2026-05-27_07-20-40-037_qsd-document-collector",
+  "status": "completed",
+  "started_at": "2026-05-27T07:20:40Z",
+  "ended_at": "2026-05-27T07:23:48Z",
+  "duration_seconds": 188,
+  "model": "sonnet",
+  "dispatched_by": "manager",
+  "trace_id": "",
+  "parent_task_id": null,
+  "input_summary": "QSD50750 Step 1: parse QSD checklist and generate document request list",
+  "output_summary": "Generated step1_document_request_list.md: 11-item core checklist analysis, 25 Tier-2 SOPs mapped, identified 1 missing core doc (ADR/Recall SOP) and ~15 ISO chapters needing confirmation",
+  "brief": "QSD50750 Step 1: parse QSD checklist and generate document request list"
+}

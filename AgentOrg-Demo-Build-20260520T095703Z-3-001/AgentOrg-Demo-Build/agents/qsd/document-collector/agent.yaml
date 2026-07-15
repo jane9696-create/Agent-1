@@ -1,0 +1,18 @@
+agent: document-collector
+title: "Document Collector"
+display_name: "文件索取清單生成師"
+team: qsd
+type: worker
+reports_to: qsd/manager
+
+bootstrap:
+  - soul.md
+  - org.md
+  - tools.md
+
+workflow: workflow.yaml
+
+dispatch:
+  model: sonnet
+  trigger: "讀取 QSD checklist Excel，產生向原廠索取文件的清單"
+  not_for: "文件比對、SOP 重命名、清單比對、填表"

@@ -1,0 +1,35 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/USER/AppData/Roaming/Claude/local-agent-mode-sessions/skills-plugin/9e923f1b-5c6f-426e-8b69-6719a0cb697e/06ba6a47-00f0-4241-ac8c-f2cf428c9735/skills/xlsx/**)",
+      "Bash(python -c ' *)",
+      "Bash(python3)",
+      "Bash(python)",
+      "Bash(python3 -c \"from pypdf import PdfReader; print\\('pypdf available'\\)\")",
+      "Bash(cat)",
+      "Bash(python /tmp/extract_pdf_metadata.py)",
+      "Bash(pdftotext -f 1 -l 2 \"PRO20157.pdf\" -)",
+      "Bash(python /tmp/extract_spc.py)",
+      "Bash(python /tmp/extract_spc_ocr.py)",
+      "Bash(dir /B *.pdf)",
+      "PowerShell(python \"C:\\\\Users\\\\USER\\\\AppData\\\\Roaming\\\\Claude\\\\local-agent-mode-sessions\\\\skills-plugin\\\\9e923f1b-5c6f-426e-8b69-6719a0cb697e\\\\06ba6a47-00f0-4241-ac8c-f2cf428c9735\\\\skills\\\\xlsx\\\\make_step4.py\")",
+      "Read(//c/Users/USER/AppData/Roaming/Claude/local-agent-mode-sessions/skills-plugin/9e923f1b-5c6f-426e-8b69-6719a0cb697e/06ba6a47-00f0-4241-ac8c-f2cf428c9735/skills/docx/**)",
+      "Bash(extract-text \"C:\\\\D\\\\MRS client-2014\\\\MRS\\\\AI training\\\\Claude-QSD\\\\work flow-QSD standard.docx\")",
+      "PowerShell(python \"C:\\\\Users\\\\USER\\\\Desktop\\\\fill_annex2.py\")",
+      "PowerShell(python \"C:\\\\D\\\\MRS client-2014\\\\DKSH_OCD\\\\OCD_QSD\\\\QSD IBJB\\\\zz\\\\build_sop_list.py\")",
+      "Bash(pdftotext -f 1 -l 2 \"ACHAT-SOP-001 Rev. 2.pdf\" -)",
+      "Bash(pdftotext -f 1 -l 2 \"CLIENT-SOP-001 Rev. 1 \\(15P SERV CLT Rev. A\\).pdf\" -)",
+      "Bash(pdftotext -f 1 -l 2 \"COMP-SOP-001 Rev. 1 \\(10P CP Rev. G\\).pdf\" -)",
+      "Bash(pdftotext -f 1 -l 2 \"CONCEPT-SOP-001 Rev. 2.pdf\" -)",
+      "Bash(pdftotext -f 1 -l 2 \"EQ-SOP-001 Rev. 1 \\(01EQ_P1 Rev. L\\).pdf\" -)",
+      "Bash(pdftotext -f 1 -l 2 \"SMQ-SOP-001 Rev. 2.pdf\" -)",
+      "Bash(pdftotext -f 1 -l 2 \"SMQ-SOP-010 Rev. 3.pdf\" -)",
+      "Bash(pdftotext -f 1 -l 2 \"SMQ-SOP-011 Rev. 1 \\(20P AutComp Rev. N\\).pdf\" -)",
+      "Bash(pdftotext -f 1 -l 2 \"GEN-SOP-001 Rev.1.pdf\" -)",
+      "Bash(pdftotext -f 1 -l 2 \"QO-SMQ-SOP-001 Rev. 1.pdf\" -)",
+      "Bash(Select-Object FullName)",
+      "PowerShell(python \"C:\\\\Users\\\\USER\\\\Desktop\\\\QSD Immulab\\\\create_sop_list.py\")",
+      "PowerShell(net use 2>&1)"
+    ]
+  }
+}

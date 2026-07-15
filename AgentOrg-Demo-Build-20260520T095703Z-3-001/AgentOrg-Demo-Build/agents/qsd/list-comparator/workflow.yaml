@@ -1,0 +1,90 @@
+agent: list-comparator
+version: "1.0"
+
+error_policy:
+  default: stop_and_report
+  notify: qsd/manager
+
+steps:
+
+  - id: log_start
+    description: "worklog 打卡開工（天條）"
+    action: bash
+    command: >
+      python scripts/_worklog_helper.py start qsd/list-comparator sonnet
+      "Cross-compare renamed SOP list vs. 3 vendor lists" qsd/manager
+    output_var: WORKLOG_FILE
+    on_error: abort_and_report_to_manager
+
+  - id: check_memory
+    description: "讀取記憶體，載入歷史比對規則與欄位映射"
+    action: read
+    path: agents/qsd/list-comparator/memory/MEMORY.md
+    on_error: continue_with_warning
+
+  - id: load_inputs
+    description: "讀取 sop-renamer 輸出的重命名清單 + 原廠三份清單（Excel/Word）"
+    action: bash
+    command: "python .claude/scripts/qsd_list_comparator_load.py"
+    inputs:
+      - renamed_list: "${INPUT.renamed_list_path}"
+      - sop_list: "${INPUT.vendor_sop_list_path}"
+      - tier2_list: "${INPUT.vendor_tier2_list_path}"
+      - master_list: "${INPUT.vendor_master_list_path}"
+    on_error: stop_and_report
+
+  - id: normalize_ids
+    description: "SOP 編號正規化：統一大小寫、去除多餘空格、統一連字號格式"
+    action: bash
+    command: "python .claude/scripts/qsd_normalize_ids.py"
+    on_error: stop_and_report
+
+  - id: compare_sop_list
+    description: "比對重命名清單 vs. 原廠 SOP list，找出三類差異"
+    action: bash
+    command: "python .claude/scripts/qsd_compare.py --target sop_list"
+    on_error: stop_and_report
+
+  - id: compare_tier2_list
+    description: "比對重命名清單 vs. 原廠 Tier 2 SOP list，找出三類差異"
+    action: bash
+    command: "python .claude/scripts/qsd_compare.py --target tier2_list"
+    on_error: stop_and_report
+
+  - id: compare_master_list
+    description: "比對重命名清單 vs. 原廠 Documentation Master list，找出三類差異"
+    action: bash
+    command: "python .claude/scripts/qsd_compare.py --target master_list"
+    on_error: stop_and_report
+
+  - id: annotate_lists
+    description: "將差異標示就地寫回三份原廠清單（openpyxl 顏色標記 + 備註欄）"
+    action: bash
+    command: "python .claude/scripts/qsd_annotate.py"
+    on_error: stop_and_report
+
+  - id: generate_summary
+    description: "產生結構化差異摘要報告（Markdown）：三份清單各自差異條目與總計"
+    action: write
+    output: "${OUTPUT_DIR}/discrepancy_summary.md"
+    on_error: continue_with_warning
+
+  - id: save_output
+    description: "將標注後的三份清單 Excel 複製到 tuq_log/output/"
+    action: bash
+    command: "python .claude/scripts/qsd_save_output.py"
+    on_error: stop_and_report
+
+  - id: save_memory
+    description: "將本次比對的欄位映射規則和正規化規則寫入 memory/MEMORY.md"
+    action: edit
+    path: agents/qsd/list-comparator/memory/MEMORY.md
+    on_error: continue_with_warning
+
+  - id: log_end
+    description: "worklog 打卡收工（天條）"
+    action: bash
+    command: >
+      python scripts/_worklog_helper.py end "${WORKLOG_FILE}" completed
+      "Annotated 3 vendor lists; discrepancy_summary.md generated"
+    on_error: retry_once_then_report

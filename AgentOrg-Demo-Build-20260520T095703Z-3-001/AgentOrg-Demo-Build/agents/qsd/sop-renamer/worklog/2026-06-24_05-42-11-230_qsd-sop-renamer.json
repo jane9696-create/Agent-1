@@ -1,0 +1,15 @@
+{
+  "agent": "qsd/sop-renamer",
+  "task_id": "2026-06-24_05-42-11-230_qsd-sop-renamer",
+  "status": "started",
+  "started_at": "2026-06-24T05:42:11Z",
+  "ended_at": null,
+  "duration_seconds": null,
+  "model": "sonnet",
+  "dispatched_by": "manager",
+  "trace_id": "",
+  "parent_task_id": null,
+  "input_summary": "Step3 SOP批量重命名",
+  "output_summary": null,
+  "brief": "Step3 SOP批量重命名"
+}

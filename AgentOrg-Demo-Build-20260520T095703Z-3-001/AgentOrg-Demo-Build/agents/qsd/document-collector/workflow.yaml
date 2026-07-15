@@ -1,0 +1,75 @@
+name: Document Collector Workflow
+description: 讀取 QSD checklist Excel，解析條款文件需求，產生結構化索取文件清單。
+
+error_policy:
+  default: diagnose_and_retry
+  max_retries: 2
+  on_max_retries: report_what_was_done_and_what_failed
+
+steps:
+  - id: log_start
+    action: shell
+    command: scripts/worklog.sh start qsd/document-collector
+    description: 開工打卡（天條）
+    on_error: continue
+
+  - id: check_memory
+    action: read_file
+    path: agents/qsd/document-collector/memory/MEMORY.md
+    description: 讀取過去解析經驗，了解常見 checklist 格式模式與已知欄位對應規則
+    on_error: continue
+
+  - id: read_checklist
+    action: shell
+    description: 讀取 QSD checklist Excel 檔案路徑，驗證檔案存在並可讀取
+    note: "從 Manager dispatch 傳入的 checklist_path 參數取得路徑；使用 Python + openpyxl/xlrd 解析 .xlsx/.xls"
+    on_error: report_and_stop
+
+  - id: parse_requirements
+    action: manager_self
+    description: |
+      逐條解析 checklist 每個條款的文件需求：
+      1. 識別條款編號、條款名稱、要求說明
+      2. 依 Document Classification 技能分類文件類型（品質手冊、SOP、表單、記錄、圖面、其他）
+      3. 推斷數量需求（明確填數字；不明確填「待確認」）
+      4. 擷取備註（條款原文特殊要求）
+    on_error:
+      action: diagnose_and_retry
+      max_attempts: 2
+      on_max: report_what_was_done_and_what_failed
+
+  - id: generate_list
+    action: manager_self
+    description: |
+      產生 Markdown 表格格式的索取文件清單：
+      - 欄位：條款編號 | 文件類型 | 數量需求 | 備註
+      - 依條款編號升冪排列
+      - 若 Manager 指定 format=excel，改產生 Excel 格式
+    on_error:
+      action: diagnose_and_retry
+      max_attempts: 2
+      on_max: report_what_was_done_and_what_failed
+
+  - id: save_output
+    action: write_file
+    description: 將清單寫入 Manager 指定的 output_path
+    note: "output_path 由 Manager dispatch 傳入；若未指定則寫入 output/qsd/{task_id}/document-request-list.md"
+    on_error: report_and_stop
+
+  - id: save_memory
+    action: write_memory
+    description: 儲存本次解析的新發現（新 checklist 格式、特殊欄位對應規則、解析錯誤教訓）
+    path: agents/qsd/document-collector/memory/MEMORY.md
+    condition: "new_checklist_format_observed == true OR parse_error_encountered == true"
+    on_error: continue
+
+  - id: log_end
+    action: shell
+    command: scripts/worklog.sh end qsd/document-collector
+    description: 收工打卡（天條）
+    on_error: continue
+
+references:
+  - agents/qsd/document-collector/soul.md
+  - agents/qsd/document-collector/tools.md
+  - agents/qsd/document-collector/skills.md

@@ -1,0 +1,20 @@
+agent: manager
+title: "QSD Manager"
+display_name: "QSD合規審查組長"
+team: qsd
+type: manager
+reports_to: user
+
+bootstrap:
+  - soul.md
+  - org.md
+  - tools.md
+
+workflow: workflow.yaml
+
+dispatch:
+  model: sonnet
+  trigger: "執行 [專案名] QSD standard合規審查、QSD 標準模式合規性審查、醫療器材品質管理系統文件稽核、ISO 13485:2016 合規文件審查、QSD checklist 比對、SOP 重命名與清單比對、QSD app form 填寫"
+  not_for: "教材生成（Edu Manager）、Agent 系統修改（Agent Ops Manager）、軟體開發"
+
+skills: skills.md

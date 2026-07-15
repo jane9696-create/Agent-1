@@ -1,0 +1,18 @@
+agent: compliance-checker
+title: "Compliance Checker"
+display_name: "合規逐項比對師"
+team: qsd
+type: worker
+reports_to: qsd/manager
+
+bootstrap:
+  - soul.md
+  - org.md
+  - tools.md
+
+workflow: workflow.yaml
+
+dispatch:
+  model: sonnet
+  trigger: "將收到的原廠文件逐項與 QSD checklist 細部需求比對，標示 Pass/Fail/Pending"
+  not_for: "索取清單生成、SOP 重命名、清單比對、填表"

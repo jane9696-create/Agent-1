@@ -1,0 +1,15 @@
+{
+  "agent": "qsd/list-comparator",
+  "task_id": "2026-05-27_07-33-05-313_qsd-list-comparator",
+  "status": "completed",
+  "started_at": "2026-05-27T07:33:05Z",
+  "ended_at": "2026-05-27T07:34:22Z",
+  "duration_seconds": 77,
+  "model": "sonnet",
+  "dispatched_by": "manager",
+  "trace_id": "",
+  "parent_task_id": null,
+  "input_summary": "QSD50750 Step 4: compare SOP list vs manufacturer Tier 2 SOP list",
+  "output_summary": "List comparison report generated: 19 manufacturer entries vs 25 received SOPs; 18 matched, 6 extra in our folder, 0 missing, 1 version pending confirmation",
+  "brief": "QSD50750 Step 4: compare SOP list vs manufacturer Tier 2 SOP list"
+}

@@ -1,0 +1,24 @@
+agent: sop-renamer
+title: "SOP Renamer"
+display_name: "SOP批量重命名師"
+team: qsd
+type: worker
+reports_to: qsd/manager
+
+# Bootstrap sequence — read in order before starting workflow
+bootstrap:
+  - soul.md
+  - org.md
+  - tools.md
+
+# Execution entry point
+workflow: workflow.yaml
+
+# Dispatch information (for Manager routing decisions)
+dispatch:
+  model: sonnet
+  trigger: "將 SOP 檔案另存新檔，命名格式：SOP number@SOP subject@SOP version"
+  not_for: "文件比對、合規審查、清單比對、填表"
+
+# On-demand capabilities
+skills: skills.md

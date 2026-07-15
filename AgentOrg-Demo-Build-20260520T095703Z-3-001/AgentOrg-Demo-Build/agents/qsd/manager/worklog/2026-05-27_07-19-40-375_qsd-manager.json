@@ -1,0 +1,15 @@
+{
+  "agent": "qsd/manager",
+  "task_id": "2026-05-27_07-19-40-375_qsd-manager",
+  "status": "completed",
+  "started_at": "2026-05-27T07:19:40Z",
+  "ended_at": "2026-05-27T07:39:19Z",
+  "duration_seconds": 1179,
+  "model": "sonnet",
+  "dispatched_by": "user",
+  "trace_id": "f78e3e45-ae81-4f6e-88ae-36114cb0ab13",
+  "parent_task_id": null,
+  "input_summary": "QSD50750 Millipore amendment 2026 — 完整 5 步驟合規性審查",
+  "output_summary": "QSD50750 Millipore amendment 2026 — 5 步驟全部完成。43 Pass / 3 Fail / 2 Pending / 5 N/A",
+  "brief": "QSD50750 Millipore amendment 2026 — 完整 5 步驟合規性審查"
+}

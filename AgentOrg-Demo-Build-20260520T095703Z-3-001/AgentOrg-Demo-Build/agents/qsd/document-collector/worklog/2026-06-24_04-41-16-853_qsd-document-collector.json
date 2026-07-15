@@ -1,0 +1,15 @@
+{
+  "agent": "qsd/document-collector",
+  "task_id": "2026-06-24_04-41-16-853_qsd-document-collector",
+  "status": "completed",
+  "started_at": "2026-06-24T04:41:16Z",
+  "ended_at": "2026-06-24T05:31:49Z",
+  "duration_seconds": 3033,
+  "model": "sonnet",
+  "dispatched_by": "manager",
+  "trace_id": "",
+  "parent_task_id": null,
+  "input_summary": "Step1 讀取QSD checklist產生索取文件清單",
+  "output_summary": "產生索取文件清單：77項（核心9項+SOP68項），輸出至QSD4603_Lee Road\\05 QSD4603 Lee Road-202603\\QSD-Step1-Document-Request-List.md",
+  "brief": "Step1 讀取QSD checklist產生索取文件清單"
+}

@@ -1,0 +1,15 @@
+{
+  "agent": "qsd/compliance-checker",
+  "task_id": "2026-06-24_05-33-53-275_qsd-compliance-checker",
+  "status": "completed",
+  "started_at": "2026-06-24T05:33:53Z",
+  "ended_at": "2026-06-24T05:40:11Z",
+  "duration_seconds": 378,
+  "model": "sonnet",
+  "dispatched_by": "manager",
+  "trace_id": "",
+  "parent_task_id": null,
+  "input_summary": "Step2 合規逐項比對",
+  "output_summary": "完成合規比對：核心文件9/9 Pass，SOP 63/68 Pass，5項Pending（Chapter 8缺CAPA/Feedback/Internal Audit程序）",
+  "brief": "Step2 合規逐項比對"
+}

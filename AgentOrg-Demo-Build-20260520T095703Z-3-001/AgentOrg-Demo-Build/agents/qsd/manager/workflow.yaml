@@ -1,0 +1,115 @@
+name: QSD Manager Orchestration
+description: Manager-as-Coordinator — QSD 5 步驟合規審查流程，每步驟依序執行並逐次驗證。
+
+error_policy:
+  default: retry_once
+  max_retries: 1
+  on_max_retries: report_gap_to_user
+
+steps:
+  - id: log_start
+    action: shell
+    command: "bash scripts/worklog.sh start qsd/manager sonnet \"$TASK_SUMMARY\" user"
+    output: WORKLOG_FILE
+    on_error: continue
+
+  - id: feedback_detect
+    action: manager_self
+    ref: agents/protocols/workflows/feedback-detect-flow.md
+    note: "偵測用戶回饋語意（正/負面），觸發 memory 保存；偵測到回饋先保存再繼續任務"
+    on_error: continue
+
+  - id: check_memory
+    action: read_memory
+    path: memory/MEMORY.md
+    on_error: continue
+
+  - id: classify
+    action: manager_self
+    note: "解析請求：確認審查範圍（全流程 or 單步驟）、input 檔案清單（QSD checklist 路徑、SOP 資料夾路徑、原廠文件路徑）、output_path。缺少必要檔案路徑時停止並詢問用戶。"
+    on_error: report_and_stop
+
+  - id: hitl_gate
+    action: manager_self
+    note: "風險評估：全流程審查涉及多份醫療法規文件，屬 Tier 2 操作。確認用戶已提供所有必要 input 路徑，列出將執行的 5 步驟及預期輸出，請求用戶確認後繼續。"
+    ref: agents/protocols/hitl-protocol.md
+    on_error: report_and_stop
+
+  - id: execute_step1
+    action: dispatch_agent
+    agent: qsd/document-collector
+    model: sonnet
+    note: "Input: QSD checklist Excel 路徑。Output: 向原廠索取文件清單（Markdown / Excel）。驗證：確認清單檔案存在且條款數量合理。"
+    inline_verify: agents/protocols/workflows/inline-verify-flow.md
+    on_error: retry_once
+
+  - id: execute_step2
+    action: dispatch_agent
+    agent: qsd/compliance-checker
+    model: sonnet
+    note: "Input: 收到的原廠文件 + QSD checklist。Output: 逐項比對結果表（Pass/Fail/Pending）。驗證：確認每個 checklist 條款均有比對結果。"
+    inline_verify: agents/protocols/workflows/inline-verify-flow.md
+    on_error: retry_once
+
+  - id: execute_step3
+    action: dispatch_agent
+    agent: qsd/sop-renamer
+    model: sonnet
+    note: "Input: 原始 SOP 檔案資料夾路徑。Output: 重命名後的 SOP 檔案（格式：SOP number@SOP subject@SOP version）。驗證：確認每個 SOP 均已重命名且命名格式正確。"
+    inline_verify: agents/protocols/workflows/inline-verify-flow.md
+    on_error: retry_once
+
+  - id: execute_step4
+    action: dispatch_agent
+    agent: qsd/list-comparator
+    model: sonnet
+    note: "Input: 重命名 SOP 清單 + 原廠 SOP list + Tier 2 SOP list + Documentation Master list。Output: 差異標示報告（多清單交叉比對）。驗證：確認四份清單均已比對且差異項目有明確標示。"
+    inline_verify: agents/protocols/workflows/inline-verify-flow.md
+    on_error: retry_once
+
+  - id: execute_step5
+    action: dispatch_agent
+    agent: qsd/form-filler
+    model: sonnet
+    note: "Input: Quality Manual + 所有 SOP + QSD app form-E-Annex 2 空白模板。Output: 填寫完成的 form-E-Annex 2。驗證：確認所有欄位均已填入且引用來源正確。"
+    inline_verify: agents/protocols/workflows/inline-verify-flow.md
+    on_error: retry_once
+
+  - id: verify
+    action: verify_agent_work
+    note: "統整 5 步驟產出：確認所有交付檔案存在，無遺漏步驟，合規比對結果完整"
+    on_error: continue
+
+  - id: synthesize
+    action: merge_results
+    note: "合成最終報告：各步驟完成狀態、合規總覽（Pass/Fail/Pending 各計數）、交付檔案清單、worker 打卡明細表"
+    on_error: partial_report
+
+  - id: deliver
+    action: respond_to_user
+    note: "向用戶交付完整審查報告，包含：5 步驟結果摘要、所有交付檔案路徑、合規風險提示（若有 Fail 項目）、worker 打卡明細表"
+    on_error: continue
+
+  - id: save_memory
+    action: write_memory
+    path: memory/
+    note: "保存本次審查的 lesson learned：特殊合規問題、常見缺件模式、用戶偏好"
+    on_error: continue
+
+  - id: log_end
+    action: shell
+    command: "bash scripts/worklog.sh end \"$WORKLOG_FILE\" completed \"$OUTPUT_SUMMARY\""
+    on_error: report_and_stop
+
+  - id: memory_check
+    action: manager_self
+    note: "回顧本輪：是否有用戶糾正或新 lesson 需存 memory？有則寫入 memory/ + 更新 MEMORY.md；無則跳過。"
+    on_error: continue
+
+references:
+  - agents/protocols/worklog-protocol.md
+  - agents/protocols/verification-protocol.md
+  - agents/protocols/hitl-protocol.md
+  - agents/protocols/workflows/feedback-detect-flow.md
+  - agents/protocols/workflows/inline-verify-flow.md
+  - agents/protocols/rules/agent-anatomy.md

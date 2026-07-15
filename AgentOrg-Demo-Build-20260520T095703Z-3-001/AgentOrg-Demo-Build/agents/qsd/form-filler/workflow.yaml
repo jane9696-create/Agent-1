@@ -1,0 +1,85 @@
+agent: form-filler
+version: "1.0"
+error_policy: stop_and_report
+
+steps:
+  - id: log_start
+    description: "執行 worklog start，記錄任務開始"
+    action: bash
+    command: "scripts/worklog.sh start"
+    on_error: abort_with_message("worklog start 失敗，停止執行並回報 Manager")
+
+  - id: check_memory
+    description: "讀取 memory/MEMORY.md，載入歷史填寫模式和已知對應關係"
+    action: read
+    path: "memory/MEMORY.md"
+    on_error: continue_with_empty_memory
+
+  - id: load_documents
+    description: "讀取所有輸入文件：Quality Manual（.docx）、所有 SOP（.docx）、form-E-Annex 2 空白模板（.xlsx）"
+    action: bash
+    details: |
+      1. Glob 掃描輸入目錄，列出所有 .docx 和 .xlsx 文件
+      2. 用 python-docx 讀取 Quality Manual 和每個 SOP 的全文段落
+      3. 用 openpyxl 讀取 form-E-Annex 2 模板，解析欄位結構
+    on_error: abort_with_message("無法讀取輸入文件，請確認文件路徑和格式正確")
+
+  - id: index_documents
+    description: "為每個文件建立 ISO 13485 條款索引：條款編號 → [文件名、章節、段落摘要]"
+    action: bash
+    details: |
+      對每份文件（QM + 所有 SOP），逐條款搜尋關鍵字
+      建立索引結構：{ clause_id: [{ doc_name, section, summary }] }
+    on_error: abort_with_message("文件索引建立失敗，無法繼續填寫")
+
+  - id: fill_clauses
+    description: "逐條填寫 form-E-Annex 2：ISO 13485 條款 → 搜尋文件索引 → 填入各欄位"
+    action: bash
+    details: |
+      對每個 ISO 13485 條款（4.1–4.2, 5.x, 6.x, 7.x, 8.x）：
+        1. 查詢 index，找出 Quality Manual 章節對應
+        2. 查詢 index，找出 SOP（編號、名稱、版本）對應
+        3. 判斷符合性：Yes（QM+SOP均覆蓋）/ Partial（部分覆蓋）/ No（無對應）
+        4. 填入備註（差異說明）
+        5. 無對應文件時填「缺少對應文件」
+    on_error: diagnose_and_retry
+    retry_limit: 2
+    retry_strategy: "重新解析該條款關鍵字，擴大搜尋範圍後再次嘗試"
+
+  - id: flag_gaps
+    description: "標記缺少對應文件的條款，產生補件清單"
+    action: write
+    details: |
+      收集所有標記為「缺少對應文件」或「No」的條款
+      輸出補件清單格式：條款編號 | 條款要求 | 缺少的文件類型 | 建議補充方式
+    on_error: continue_with_partial_gap_list("部分補件清單生成失敗，繼續後續步驟")
+
+  - id: save_form
+    description: "輸出填寫完成的 form-E-Annex 2（.xlsx 或 Markdown 表格）"
+    action: write
+    output_path: "tuq_log/output/form-E-Annex2-filled.xlsx"
+    fallback_format: "Markdown 表格（若 openpyxl 寫入失敗）"
+    on_error: fallback_to_markdown("xlsx 輸出失敗，改為 Markdown 格式輸出")
+
+  - id: generate_summary
+    description: "生成填寫完成率統計：條款總數、Yes/Partial/No 各多少條、缺件條款清單"
+    action: write
+    output_path: "tuq_log/output/form-filler-summary.md"
+    on_error: continue_with_minimal_summary("摘要生成失敗，僅回報完成狀態")
+
+  - id: save_output
+    description: "確認所有輸出文件已寫入 tuq_log/output/ 或 Manager 指定目錄"
+    action: verify
+    on_error: retry_once_then_abort("輸出文件確認失敗，請手動檢查輸出目錄")
+
+  - id: save_memory
+    description: "將本次填寫中發現的新對應模式、關鍵字映射寫入 memory/MEMORY.md"
+    action: write
+    path: "memory/MEMORY.md"
+    on_error: log_warning_and_continue("memory 寫入失敗，不影響主要任務結果")
+
+  - id: log_end
+    description: "執行 worklog end，記錄任務完成"
+    action: bash
+    command: "scripts/worklog.sh end"
+    on_error: retry_once_then_report("worklog end 失敗，重試一次，仍失敗則回報 Manager")

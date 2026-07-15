@@ -1,0 +1,15 @@
+{
+  "agent": "agent-ops/governance",
+  "task_id": "2026-05-27_06-48-35-800_agent-ops-governance",
+  "status": "completed",
+  "started_at": "2026-05-27T06:48:35Z",
+  "ended_at": "2026-05-27T06:49:25Z",
+  "duration_seconds": 50,
+  "model": "opus",
+  "dispatched_by": "manager",
+  "trace_id": "8c4e2f63-4a65-4dd7-996f-9389a3e39a97",
+  "parent_task_id": null,
+  "input_summary": "Governance review: QSD team creation",
+  "output_summary": "Governance review complete: 5/5 PASS, 2 WARN, verdict APPROVED_WITH_WARNINGS",
+  "brief": "Governance review: QSD team creation"
+}

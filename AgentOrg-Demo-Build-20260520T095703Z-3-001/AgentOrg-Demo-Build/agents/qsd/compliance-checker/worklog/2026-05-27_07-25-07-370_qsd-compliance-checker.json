@@ -1,0 +1,15 @@
+{
+  "agent": "qsd/compliance-checker",
+  "task_id": "2026-05-27_07-25-07-370_qsd-compliance-checker",
+  "status": "completed",
+  "started_at": "2026-05-27T07:25:07Z",
+  "ended_at": "2026-05-27T07:29:55Z",
+  "duration_seconds": 288,
+  "model": "sonnet",
+  "dispatched_by": "manager",
+  "trace_id": "",
+  "parent_task_id": null,
+  "input_summary": "QSD50750 Step 2: compliance check vs QSD checklist",
+  "output_summary": "Generated step2_compliance_check_report.md: Pass 4/Fail 1/Pending 6 core docs; 24 Pass/14 Fail/1 Pending Module2 SOPs",
+  "brief": "QSD50750 Step 2: compliance check vs QSD checklist"
+}
