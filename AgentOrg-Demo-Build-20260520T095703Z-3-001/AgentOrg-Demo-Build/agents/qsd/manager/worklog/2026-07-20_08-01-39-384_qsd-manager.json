@@ -1,0 +1,15 @@
+{
+  "agent": "qsd/manager",
+  "task_id": "2026-07-20_08-01-39-384_qsd-manager",
+  "status": "started",
+  "started_at": "2026-07-20T08:01:39Z",
+  "ended_at": null,
+  "duration_seconds": null,
+  "model": "sonnet",
+  "dispatched_by": "user",
+  "trace_id": "651f4eaf-c1bd-46bc-8246-eca46a959b81",
+  "parent_task_id": null,
+  "input_summary": "使用者請求：幫我做一個QSD標準模式合規審查",
+  "output_summary": null,
+  "brief": "使用者請求：幫我做一個QSD標準模式合規審查"
+}
