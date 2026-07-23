@@ -29,7 +29,9 @@
       "Bash(pdftotext -f 1 -l 2 \"QO-SMQ-SOP-001 Rev. 1.pdf\" -)",
       "Bash(Select-Object FullName)",
       "PowerShell(python \"C:\\\\Users\\\\USER\\\\Desktop\\\\QSD Immulab\\\\create_sop_list.py\")",
-      "PowerShell(net use 2>&1)"
+      "PowerShell(net use 2>&1)",
+      "Bash(mkdir -p /root/.claude/uploads/6e85cfd2-395b-5063-abe9-92cadcb61d21/output)",
+      "Bash(cp /tmp/claude-0/-home-user-Agent-1/6e85cfd2-395b-5063-abe9-92cadcb61d21/scratchpad/pdf2docx/LoE_Alba_Address_02OCT24.docx /tmp/claude-0/-home-user-Agent-1/6e85cfd2-395b-5063-abe9-92cadcb61d21/scratchpad/LoE_Alba_Address_02OCT24.docx)"
     ]
   }
 }
