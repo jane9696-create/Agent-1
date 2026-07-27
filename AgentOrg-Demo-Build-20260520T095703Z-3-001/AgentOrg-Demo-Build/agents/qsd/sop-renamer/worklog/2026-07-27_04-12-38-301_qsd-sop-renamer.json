@@ -1,0 +1,15 @@
+{
+  "agent": "qsd/sop-renamer",
+  "task_id": "2026-07-27_04-12-38-301_qsd-sop-renamer",
+  "status": "completed",
+  "started_at": "2026-07-27T04:12:38Z",
+  "ended_at": "2026-07-27T04:17:39Z",
+  "duration_seconds": 301,
+  "model": "sonnet",
+  "dispatched_by": "qsd/manager",
+  "trace_id": "",
+  "parent_task_id": null,
+  "input_summary": "QSD IBJB Step3 SOP重命名",
+  "output_summary": "QSD IBJB Step3：48份SOP全數複製成功並依規則命名（26份標記_FR、22份英文無標記），0份需人工確認，0撞名。輸出：qsd_ibjb/output/step3_renamed_sops/ 及 step3_sop_manifest.md",
+  "brief": "QSD IBJB Step3 SOP重命名"
+}
