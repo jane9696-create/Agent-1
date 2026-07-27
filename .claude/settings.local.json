@@ -29,7 +29,12 @@
       "Bash(pdftotext -f 1 -l 2 \"QO-SMQ-SOP-001 Rev. 1.pdf\" -)",
       "Bash(Select-Object FullName)",
       "PowerShell(python \"C:\\\\Users\\\\USER\\\\Desktop\\\\QSD Immulab\\\\create_sop_list.py\")",
-      "PowerShell(net use 2>&1)"
+      "PowerShell(net use 2>&1)",
+      "Bash(git add *)",
+      "Bash(echo \"AgentOrg-Demo-Build-20260520T095703Z-3-001/AgentOrg-Demo-Build/.claude/scripts/__pycache__/\")",
+      "Bash(rm -rf \"AgentOrg-Demo-Build-20260520T095703Z-3-001/AgentOrg-Demo-Build/.claude/scripts/__pycache__\")",
+      "Bash(git status *)",
+      "Bash(mkdir -p /home/user/Agent-1/AgentOrg-Demo-Build-20260520T095703Z-3-001/AgentOrg-Demo-Build/.claude/scripts *)"
     ]
   }
 }
