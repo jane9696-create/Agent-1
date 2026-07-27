@@ -1,0 +1,15 @@
+{
+  "agent": "qsd/form-filler",
+  "task_id": "2026-07-27_05-55-51-208_qsd-form-filler",
+  "status": "completed",
+  "started_at": "2026-07-27T05:55:51Z",
+  "ended_at": "2026-07-27T05:58:48Z",
+  "duration_seconds": 177,
+  "model": "sonnet",
+  "dispatched_by": "qsd/manager",
+  "trace_id": "",
+  "parent_task_id": null,
+  "input_summary": "QSD IBJB Step5 移除表格Version欄之Rev.文字（客戶回饋）",
+  "output_summary": "Version 欄格式修正完成：52 個資料列儲存格移除 Rev. 文字前綴改為純數字，docx/odt 兩份輸出檔已原地覆蓋，回轉驗證通過（72列×7欄無損，Version欄無Rev.殘留），summary.md 與 MEMORY.md 已更新",
+  "brief": "QSD IBJB Step5 移除表格Version欄之Rev.文字（客戶回饋）"
+}
