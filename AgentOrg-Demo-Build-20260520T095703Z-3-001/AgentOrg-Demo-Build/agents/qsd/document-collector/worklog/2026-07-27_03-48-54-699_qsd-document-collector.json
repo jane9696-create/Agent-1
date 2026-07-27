@@ -1,15 +1,15 @@
 {
   "agent": "qsd/document-collector",
   "task_id": "2026-07-27_03-48-54-699_qsd-document-collector",
-  "status": "started",
+  "status": "completed",
   "started_at": "2026-07-27T03:48:54Z",
-  "ended_at": null,
-  "duration_seconds": null,
+  "ended_at": "2026-07-27T03:52:59Z",
+  "duration_seconds": 245,
   "model": "sonnet",
   "dispatched_by": "qsd/manager",
   "trace_id": "",
   "parent_task_id": null,
   "input_summary": "QSD IBJB Step1: 解析 checklist 產生索取文件清單",
-  "output_summary": null,
+  "output_summary": "已解析 QSD IBJB checklist 全部 87 列（Module1 9筆 + Module2 68筆條款），產出 4 欄位索取清單並完成 Module1 八大項到位狀態核對，輸出至 scratchpad/qsd_ibjb/output/step1_document_request_list.md",
   "brief": "QSD IBJB Step1: 解析 checklist 產生索取文件清單"
 }
