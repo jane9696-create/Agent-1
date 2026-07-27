@@ -1,0 +1,15 @@
+{
+  "agent": "qsd/sop-renamer",
+  "task_id": "2026-07-27_05-36-20-988_qsd-sop-renamer",
+  "status": "completed",
+  "started_at": "2026-07-27T05:36:20Z",
+  "ended_at": "2026-07-27T05:42:46Z",
+  "duration_seconds": 386,
+  "model": "sonnet",
+  "dispatched_by": "qsd/manager",
+  "trace_id": "",
+  "parent_task_id": null,
+  "input_summary": "QSD IBJB Step3 移除檔名版本欄之Rev.文字（客戶回饋）",
+  "output_summary": "QSD IBJB Step3 完成48份SOP版本欄修正：版本欄由Rev.X改為純數字X（number@subject[_FR]@X.pdf）。全數以shutil.copy2複製+驗證大小一致後刪除舊檔，SMQ-SOP-021兩版次無撞名。manifest與memory已依協定更新。",
+  "brief": "QSD IBJB Step3 移除檔名版本欄之Rev.文字（客戶回饋）"
+}
