@@ -1,0 +1,15 @@
+{
+  "agent": "qsd/document-collector",
+  "task_id": "2026-07-27_03-48-54-699_qsd-document-collector",
+  "status": "started",
+  "started_at": "2026-07-27T03:48:54Z",
+  "ended_at": null,
+  "duration_seconds": null,
+  "model": "sonnet",
+  "dispatched_by": "qsd/manager",
+  "trace_id": "",
+  "parent_task_id": null,
+  "input_summary": "QSD IBJB Step1: 解析 checklist 產生索取文件清單",
+  "output_summary": null,
+  "brief": "QSD IBJB Step1: 解析 checklist 產生索取文件清單"
+}
