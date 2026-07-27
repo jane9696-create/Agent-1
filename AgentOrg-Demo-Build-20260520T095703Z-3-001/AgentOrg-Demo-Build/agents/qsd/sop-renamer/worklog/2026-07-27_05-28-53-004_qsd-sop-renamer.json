@@ -1,0 +1,15 @@
+{
+  "agent": "qsd/sop-renamer",
+  "task_id": "2026-07-27_05-28-53-004_qsd-sop-renamer",
+  "status": "completed",
+  "started_at": "2026-07-27T05:28:53Z",
+  "ended_at": "2026-07-27T05:35:07Z",
+  "duration_seconds": 374,
+  "model": "sonnet",
+  "dispatched_by": "qsd/manager",
+  "trace_id": "",
+  "parent_task_id": null,
+  "input_summary": "QSD IBJB Step3 修正法文檔名格式（客戶回饋）",
+  "output_summary": "修正 QSD IBJB Step3 法文檔名格式：29 份法文版 SOP 由 number@subject@version_FR.pdf 更正為 number@subject_FR@version.pdf（19 份英文版不變）。方法：shutil.copy2 複製新檔名副本並驗證檔案大小一致後，移除舊命名的重複副本（未使用 os.rename，依 tools.md 規範）。已同步更新 step3_sop_manifest.md 對照清單與 feedback_naming_convention.md 記憶檔。",
+  "brief": "QSD IBJB Step3 修正法文檔名格式（客戶回饋）"
+}
