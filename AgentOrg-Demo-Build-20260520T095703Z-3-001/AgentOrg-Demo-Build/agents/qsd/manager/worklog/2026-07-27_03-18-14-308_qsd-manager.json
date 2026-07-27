@@ -1,0 +1,15 @@
+{
+  "agent": "qsd/manager",
+  "task_id": "2026-07-27_03-18-14-308_qsd-manager",
+  "status": "started",
+  "started_at": "2026-07-27T03:18:14Z",
+  "ended_at": null,
+  "duration_seconds": null,
+  "model": "sonnet",
+  "dispatched_by": "user",
+  "trace_id": "b2b5f639-02b7-4344-b9ad-bce3c3925c4b",
+  "parent_task_id": null,
+  "input_summary": "新建製造廠 IBJB 的 QSD 標準模式合規性審查（任務名稱：QSD IBJB）",
+  "output_summary": null,
+  "brief": "新建製造廠 IBJB 的 QSD 標準模式合規性審查（任務名稱：QSD IBJB）"
+}
