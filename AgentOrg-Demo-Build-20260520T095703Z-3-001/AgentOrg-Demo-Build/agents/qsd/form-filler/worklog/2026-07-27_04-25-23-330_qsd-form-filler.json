@@ -1,15 +1,15 @@
 {
   "agent": "qsd/form-filler",
   "task_id": "2026-07-27_04-25-23-330_qsd-form-filler",
-  "status": "started",
+  "status": "completed",
   "started_at": "2026-07-27T04:25:23Z",
-  "ended_at": null,
-  "duration_seconds": null,
+  "ended_at": "2026-07-27T04:38:15Z",
+  "duration_seconds": 772,
   "model": "sonnet",
   "dispatched_by": "qsd/manager",
   "trace_id": "",
   "parent_task_id": null,
   "input_summary": "QSD IBJB Step5 填寫 form-E-Annex2",
-  "output_summary": null,
+  "output_summary": "QSD IBJB Step5 填寫 form-E-Annex2 完成：66條款已填（Yes39/Partial12/No11/N-A4），輸出 step5_form_E_Annex2_filled.odt + step5_form_filler_summary.md",
   "brief": "QSD IBJB Step5 填寫 form-E-Annex2"
 }
