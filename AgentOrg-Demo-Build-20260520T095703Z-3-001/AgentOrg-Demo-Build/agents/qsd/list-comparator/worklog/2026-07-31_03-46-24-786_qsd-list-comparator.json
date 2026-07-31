@@ -1,0 +1,15 @@
+{
+  "agent": "qsd/list-comparator",
+  "task_id": "2026-07-31_03-46-24-786_qsd-list-comparator",
+  "status": "completed",
+  "started_at": "2026-07-31T03:46:24Z",
+  "ended_at": "2026-07-31T03:53:53Z",
+  "duration_seconds": 449,
+  "model": "sonnet",
+  "dispatched_by": "qsd/manager",
+  "trace_id": "",
+  "parent_task_id": null,
+  "input_summary": "QSD IBJB 更新Tier2 SOP list（客戶提供新版xlsx）",
+  "output_summary": "QSD IBJB Tier2 SOP list更新完成：13列補齊English SOP No.（皆為step3 manifest認證之翻譯版），0列新增（29筆French SOP No.與manifest全集完全一致，無缺漏），發現並就地標示2筆版本差異（SMQ-SOP-010、CONCEPT-SOP-001，清單版次落後於Step3權威資料），輸出step4_Tier2_SOP_list_updated.xlsx與更新說明報告，MEMORY.md已追加記錄",
+  "brief": "QSD IBJB 更新Tier2 SOP list（客戶提供新版xlsx）"
+}
