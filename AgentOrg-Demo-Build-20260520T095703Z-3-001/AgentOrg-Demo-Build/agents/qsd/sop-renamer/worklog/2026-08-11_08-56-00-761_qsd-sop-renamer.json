@@ -1,0 +1,15 @@
+{
+  "agent": "qsd/sop-renamer",
+  "task_id": "2026-08-11_08-56-00-761_qsd-sop-renamer",
+  "status": "completed",
+  "started_at": "2026-08-11T08:56:00Z",
+  "ended_at": "2026-08-11T08:59:15Z",
+  "duration_seconds": 195,
+  "model": "sonnet",
+  "dispatched_by": "qsd/manager",
+  "trace_id": "",
+  "parent_task_id": null,
+  "input_summary": "QSD IBJB 重命名原廠補件之11份英文SOP",
+  "output_summary": "重命名原廠補件11份英文SOP完成：逐份開啟PDF確認語言/主題/翻譯對應關係，複製到output/step3_renamed_sops/（59份總計，0失敗0撞名），manifest已新增章節並更新總計數字，feedback memory已追加補件情境心得",
+  "brief": "QSD IBJB 重命名原廠補件之11份英文SOP"
+}
