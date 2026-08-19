@@ -1,0 +1,15 @@
+{
+  "agent": "qsd/form-filler",
+  "task_id": "2026-08-19_07-37-15-940_qsd-form-filler",
+  "status": "completed",
+  "started_at": "2026-08-19T07:37:15Z",
+  "ended_at": "2026-08-19T07:45:06Z",
+  "duration_seconds": 471,
+  "model": "sonnet",
+  "dispatched_by": "qsd/manager",
+  "trace_id": "",
+  "parent_task_id": null,
+  "input_summary": "QSD IBJB Step5 更新引用原廠補件之英文SOP",
+  "output_summary": "QSD IBJB Step5：原廠補件之11份英文SOP已逐份核閱並補充引用，實際更新25列，Procedure number/Version欄同步更新，其餘欄位（含Yes/Partial/No判定）未變動；odt→docx→odt→docx回轉驗證通過（0內容差異）；summary.md與MEMORY.md已更新",
+  "brief": "QSD IBJB Step5 更新引用原廠補件之英文SOP"
+}
