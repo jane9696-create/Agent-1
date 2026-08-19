@@ -1,0 +1,15 @@
+{
+  "agent": "qsd/form-filler",
+  "task_id": "2026-08-19_08-07-03-264_qsd-form-filler",
+  "status": "completed",
+  "started_at": "2026-08-19T08:07:03Z",
+  "ended_at": "2026-08-19T08:11:26Z",
+  "duration_seconds": 263,
+  "model": "sonnet",
+  "dispatched_by": "qsd/manager",
+  "trace_id": "",
+  "parent_task_id": null,
+  "input_summary": "QSD IBJB Step5 精簡N/A列Procedure number（客戶回饋version可忽略）",
+  "output_summary": "已精簡4個N/A列(Article 51/53/56/57)的Procedure number欄為純代碼SMQ-MQ-002/SMQ-MQ-001，理由文字完整搬移至Version欄；docx->odt->docx回轉驗證0差異；已更新summary.md與MEMORY.md",
+  "brief": "QSD IBJB Step5 精簡N/A列Procedure number（客戶回饋version可忽略）"
+}
