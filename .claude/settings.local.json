@@ -34,7 +34,8 @@
       "Bash(echo \"AgentOrg-Demo-Build-20260520T095703Z-3-001/AgentOrg-Demo-Build/.claude/scripts/__pycache__/\")",
       "Bash(rm -rf \"AgentOrg-Demo-Build-20260520T095703Z-3-001/AgentOrg-Demo-Build/.claude/scripts/__pycache__\")",
       "Bash(git status *)",
-      "Bash(mkdir -p /home/user/Agent-1/AgentOrg-Demo-Build-20260520T095703Z-3-001/AgentOrg-Demo-Build/.claude/scripts *)"
+      "Bash(mkdir -p /home/user/Agent-1/AgentOrg-Demo-Build-20260520T095703Z-3-001/AgentOrg-Demo-Build/.claude/scripts *)",
+      "Bash(ROOT=\"/home/user/Agent-1/AgentOrg-Demo-Build-20260520T095703Z-3-001/AgentOrg-Demo-Build\" *)"
     ]
   }
 }
